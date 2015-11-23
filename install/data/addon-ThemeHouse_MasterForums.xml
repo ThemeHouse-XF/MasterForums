@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<addon addon_id="ThemeHouse_MasterForums" title="[⌂] Master Forums" version_string="1.0.0" version_id="1447261019" url="http://xf.themehouse.io/" install_callback_class="ThemeHouse_Install" install_callback_method="install" uninstall_callback_class="ThemeHouse_Install" uninstall_callback_method="uninstall">
+  <admin_navigation/>
+  <admin_permissions/>
+  <admin_style_properties/>
+  <admin_templates>
+    <template title="th_option_list_option_select_masterforums"><![CDATA[<xen:selectunit label="{$preparedOption.title}" name="{$fieldPrefix}[{$preparedOption.option_id}]"
+hint="{$preparedOption.hint}" inputclass="{$preparedOption.inputClass}" multiple="multiple">
+	<xen:options source="$formatParams" />
+	<xen:explain>{xen:raw $preparedOption.explain}</xen:explain>
+	<xen:html>
+		<input type="hidden" name="{$listedFieldName}" value="{$preparedOption.option_id}" />
+		{xen:raw $editLink}
+	</xen:html>
+</xen:selectunit>]]></template>
+  </admin_templates>
+  <admin_template_modifications/>
+  <code_events/>
+  <code_event_listeners>
+    <listener event_id="controller_pre_dispatch" execute_order="10" callback_class="ThemeHouse_Listener_ControllerPreDispatch" callback_method="controllerPreDispatch" active="1" hint="" description=""/>
+    <listener event_id="file_health_check" execute_order="10" callback_class="ThemeHouse_MasterForums_Listener_FileHealthCheck" callback_method="fileHealthCheck" active="1" hint="" description=""/>
+    <listener event_id="init_dependencies" execute_order="10" callback_class="ThemeHouse_Listener_InitDependencies" callback_method="initDependencies" active="1" hint="" description=""/>
+    <listener event_id="load_class" execute_order="10" callback_class="ThemeHouse_MasterForums_Listener_LoadClass" callback_method="loadClassModel" active="0" hint="XenForo_Model_Thread" description="XenForo_Model_Thread (For XenForo 1.2 and above)" compatibility_switch="1"/>
+    <listener event_id="load_class_model" execute_order="10" callback_class="ThemeHouse_MasterForums_Listener_LoadClass" callback_method="loadClassModel" active="1" hint="" description="(For XenForo 1.1 and below)" compatibility_switch="1"/>
+  </code_event_listeners>
+  <cron/>
+  <email_templates/>
+  <email_template_modifications/>
+  <optiongroups>
+    <group group_id="th_masterForums" display_order="2000" debug_only="0"/>
+    <option option_id="th_masterForums_feederForumIds" edit_format="callback" data_type="array" can_backup="1">
+      <default_value/>
+      <edit_format_params>ThemeHouse_MasterForums_Option_ForumChooser::renderMultipleSelect</edit_format_params>
+      <sub_options>*</sub_options>
+      <relation group_id="th_masterForums" display_order="10"/>
+    </option>
+    <option option_id="th_masterForums_masterForumId" edit_format="callback" data_type="unsigned_integer" can_backup="1">
+      <default_value>0</default_value>
+      <edit_format_params>XenForo_Option_ForumChooser::renderOption</edit_format_params>
+      <sub_options/>
+      <relation group_id="th_masterForums" display_order="1"/>
+    </option>
+  </optiongroups>
+  <permissions>
+    <permission_groups/>
+    <permissions/>
+    <interface_groups/>
+  </permissions>
+  <phrases>
+    <phrase title="option_group_th_masterForums" version_id="1399982981" version_string="1.0.0"><![CDATA[Master Forums by ThemeHouse]]></phrase>
+    <phrase title="option_group_th_masterForums_description" version_id="1399982981" version_string="1.0.0"><![CDATA[Options for the Master Forums by ThemeHouse add-on.]]></phrase>
+    <phrase title="option_th_masterForums_feederForumIds" version_id="1399982981" version_string="1.0.0"><![CDATA[Feeder Forums]]></phrase>
+    <phrase title="option_th_masterForums_feederForumIds_explain" version_id="1399982981" version_string="1.0.0"><![CDATA[Choose the forums that you wish to pull threads from.]]></phrase>
+    <phrase title="option_th_masterForums_masterForumId" version_id="1399982981" version_string="1.0.0"><![CDATA[Master Forum]]></phrase>
+    <phrase title="option_th_masterForums_masterForumId_explain" version_id="1399982981" version_string="1.0.0"><![CDATA[Choose the forum you would like to be the master forum.]]></phrase>
+  </phrases>
+  <route_prefixes/>
+  <style_properties/>
+  <templates/>
+  <public_template_modifications>
+    <modification template="footer" modification_key="th_copyrightNotice_masterForums" description="Copyright notice for [⌂] Master Forums" execution_order="1" enabled="1" action="callback">
+      <find><![CDATA[/{xen:phrase (?:xenforo|extra)_copyright}/]]></find>
+      <replace><![CDATA[ThemeHouse_Listener_InitDependencies::copyrightNotice]]></replace>
+    </modification>
+  </public_template_modifications>
+  <bb_code_media_sites/>
+  <bb_codes/>
+</addon>
